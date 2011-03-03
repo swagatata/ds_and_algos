@@ -1,6 +1,6 @@
 CXXFLAGS=
 # Uncomment the following line to enable DEBUG mode
-# CXXFLAGS=-D DEBUG
+# CXXFLAGS+=-D DEBUG -g -Wall
 
 # These targets don't generate executables
 .PHONY: test clean
