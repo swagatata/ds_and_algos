@@ -29,7 +29,13 @@ class default_operators {
     //          }
     //  }
     //
-    
+    //
+    // Suggested example implementation of the cmp function:
+    //  static int cmp(const SomeClass &lhs, const SomeClass &rhs) {
+    //      int value_differences[] = {lhs.value1 - rhs.value1, lhs.value2 - rhs.value2, lhs.value3 - rhs.value3};
+    //      for(int i = 0; i < 3; ++i) if(value_differences[i]) return value_differences[i];
+    //      return 0;
+    //  }
     
     //   a function object that provides the comparison function.
     //   Must Provide: int operator()(const T& lhs, const T& rhs)
@@ -90,3 +96,13 @@ struct GeneralCmpFunction {
     }
 };
 
+template<class T>
+struct LessCmpFunction {
+    // Use this option when you provide an operator< in your class and you want
+    // the other methods to be generated for you
+    int operator()(const T& lhs, const T& rhs) {
+        if(lhs < rhs) return -1;
+        if(!(rhs < lhs)) return 0; // equal
+        return 1;
+    }
+}
