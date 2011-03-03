@@ -2,7 +2,8 @@ CXXFLAGS=
 # Uncomment the following line to enable DEBUG mode
 # CXXFLAGS=-D DEBUG
 
-.PHONY: test
+# These targets don't generate executables
+.PHONY: test clean
 
 # Default Build target
 test: kruskal_tests
