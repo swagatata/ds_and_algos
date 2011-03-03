@@ -105,4 +105,4 @@ struct LessCmpFunction {
         if(!(rhs < lhs)) return 0; // equal
         return 1;
     }
-}
+};
