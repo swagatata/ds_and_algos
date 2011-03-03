@@ -1,3 +1,6 @@
+#ifndef DEFAULT_OPERATORS_HPP
+#define DEFAULT_OPERATORS_HPP
+
 template<class T>
 struct StaticCmp {
     int operator()(const T& lhs, const T& rhs) const {
@@ -106,3 +109,5 @@ struct LessCmpFunction {
         return 1;
     }
 };
+
+#endif // DEFAULT_OPERATORS_HPP
