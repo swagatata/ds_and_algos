@@ -33,6 +33,6 @@ int main(int argc, char * argv[]){
 
 	input(V, E, edges, fin);	
 	
-	cout << kruskal(V, E, edges) << endl ;
+	cout << kruskal(V, edges, edges + E) << endl ;
 	return 0;
 }
