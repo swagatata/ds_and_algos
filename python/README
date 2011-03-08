@@ -1,0 +1,8 @@
+You may use josephus.py as follows
+	
+	python josephus.py 100 30
+
+		or
+
+	python josephus.py (without command line arguments)
+
