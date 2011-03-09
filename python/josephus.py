@@ -33,6 +33,13 @@ class Person:
 # n people in a circle
 # kill every mth person
 
+def josephus(self, m, n):
+	first = Person(1)
+	last = first.createChain(n - 1)
+	last.succ = first
+
+	return first.kill(1, m, n)
+
 def main():
 	if len(sys.argv) != 3:
 		n = int(raw_input('Enter number of people : '))
@@ -41,12 +48,8 @@ def main():
 		n = int(sys.argv[1])
 		m = int(sys.argv[2])
 
-	first = Person(1)
-	last = first.createChain(n-1)
-	last.succ = first
-
 	print "In a circle of %d people, killing number %d" % (n,m)
-	winner = first.kill(1,m,n)
+	winner = josephus(1,m,n)
 	print "Winner: ", winner
 
 if __name__ == '__main__':

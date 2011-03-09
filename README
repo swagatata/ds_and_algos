@@ -1,1 +1,2 @@
 We are aiming to provide c++ code for standard textbook data structures and algorithms.
+The file 'primes' has all primes less than ten million.

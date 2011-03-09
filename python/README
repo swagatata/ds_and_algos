@@ -6,3 +6,8 @@ You may use josephus.py as follows
 
 	python josephus.py (without command line arguments)
 
+also josephus.py could be imported and can be used 
+	
+	import josephus
+	winner = josephus(m, n)
+
