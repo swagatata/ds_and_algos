@@ -5,6 +5,9 @@
 #include<climits>
 #include<assert.h>
 
+#ifndef KRUSKAL_H
+#define KRUSKAL_H
+
 #define FOR(i, n) for(int i = 0 ; i < n ; i++)
 #define FORE(i, n) for(int i = n ; i >= 0 ; i++)
 
@@ -144,4 +147,4 @@ u_int kruskal(int v, EdgeIterator edge_begin, EdgeIterator edge_end) {
     
 	return mstcost;
 }
-
+#endif
