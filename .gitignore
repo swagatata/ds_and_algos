@@ -1,2 +1,5 @@
 kruskal
 kruskal_tests
+*.pyc
+*.pyo
+*.swp
