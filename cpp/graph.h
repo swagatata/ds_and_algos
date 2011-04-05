@@ -18,5 +18,6 @@ public:
 	virtual void set_edge_weight(int , int, EW) = 0;
 	virtual void dfs(int) = 0;	
 	virtual void bfs(int) = 0;
+	virtual ~Graph() {};
 };
 
