@@ -28,6 +28,11 @@ private:
 	
 public:
 	AdjMatrix(int v){
+	    if (v > MAXV){
+	        cout << "No. of vertices exceeding maximum limit.\n" ;
+   	        exit(1);
+	    }
+	
 		this-> V = v;		
 		this->vnode = this->vedge = NULL;
 		this->size = v * (v + 1) / 2;

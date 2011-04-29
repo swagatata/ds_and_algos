@@ -1,0 +1,2 @@
+If different modules in a program use random generators, but wish to have independent seeds, it is not possible right now.
+Implement a system where we have independent rand objects and each have different seeds and independently generate random numbers.

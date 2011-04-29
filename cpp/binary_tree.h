@@ -37,7 +37,7 @@ public:
 
 template <class Data>
 void BinaryTree<Data>::level_order(void (*visit_fun)(BinaryTreeNode<Data> *)){    
-    Tracer t("level_order");
+    Tracer t("level_order", cout);
     this->visit = visit_fun;
     queue<BinaryTreeNode<Data> *> q;
     level_order_recursion(root, q);
@@ -60,7 +60,7 @@ void BinaryTree<Data>::level_order_recursion(BinaryTreeNode<Data> * current_node
 
 template <class Data>
 void BinaryTree<Data>::in_order(void (*visit_fun)(BinaryTreeNode<Data> *)){    
-    Tracer t("in_order(visit)");
+    Tracer t("in_order(visit)", cout);
     this->visit = visit_fun;
     in_order_recursion(root);    
 }
@@ -79,7 +79,7 @@ void BinaryTree<Data>::in_order_recursion(BinaryTreeNode<Data> * current_node){
 
 template <class Data>
 void BinaryTree<Data>::pre_order(void (*visit_fun)(BinaryTreeNode<Data> *)){    
-    Tracer t("pre_order(visit)");
+    Tracer t("pre_order(visit)", cout);
     this->visit = visit_fun;
     pre_order_recursion(root);    
 }
@@ -98,7 +98,7 @@ void BinaryTree<Data>::pre_order_recursion(BinaryTreeNode<Data> * current_node){
 
 template <class Data>
 void BinaryTree<Data>::post_order(void (*visit_fun)(BinaryTreeNode<Data> *)){    
-    Tracer t("post_order(visit)");
+    Tracer t("post_order(visit)", cout);
     this->visit = visit_fun;
     post_order_recursion(root);    
 }
@@ -116,7 +116,7 @@ void BinaryTree<Data>::post_order_recursion(BinaryTreeNode<Data> * current_node)
 
 template <class Data>
 BinaryTree<Data>::BinaryTree(int nNodes){
-    Tracer t("BinaryTree(int nNodes)");
+    Tracer t("BinaryTree(int nNodes)", cout);
 
     class BinaryRand{
         public:

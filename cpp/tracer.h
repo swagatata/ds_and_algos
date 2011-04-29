@@ -4,6 +4,7 @@
 #include<fstream>
 #include<iostream>
 #include<string>
+#include<time.h>
 
 using namespace std;
 
@@ -18,18 +19,32 @@ using namespace std;
 class Tracer{
 private:
     string context_name;
+    ostream &out;
+    clock_t start_time;
+    clock_t ignore_time;
 public:
-    Tracer(string module_name){        
+    Tracer(string module_name, ostream &fout) : out(fout){        
         context_name = module_name;
         cout << endl << context_name << endl ;
+        start_time = clock();
+        ignore_time = 0;
     }
     
     void debug(string debug_msg){
+        clock_t temp = clock();
         cout << endl << debug_msg << endl ;
+        ignore_time += (clock() - temp);
     }
     
-    virtual ~Tracer(){        
-        cout << endl << "Exiting " << context_name << endl ;
+    void pause(){
+        clock_t temp = clock();
+        cin.get();
+        ignore_time += (clock() - temp);
+    }
+    
+    virtual ~Tracer(){  
+        clock_t end_time = clock();
+        cout << endl << (end_time - start_time - ignore_time) << " Clock Cycles : " << "Exiting " << context_name << endl ;
     }
 };
 
