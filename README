@@ -1,1 +1,19 @@
 We are aiming to provide c++ & python code for standard textbook data structures and algorithms.
+
+Currently, the following algorithms are working:
+
+* Kruskals
+
+There are some other algorithms that can be used:
+
+* The Josephus Problem
+* Breadth First Search
+* Depth First Search
+
+In terms of data structures, the following are available:
+
+* An adjacency matrix representation of a graph (in C++)
+* A class that provides all the comparison operators based on the presence of a cmp function 
+  or a less than operator in a class (see: default_operators.hpp)
+
+
