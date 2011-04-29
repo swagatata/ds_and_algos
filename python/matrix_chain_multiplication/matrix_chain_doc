@@ -1,0 +1,11 @@
+input should be in matrix_chain_input file.
+input format 
+<test cases>
+<!-- following are <test cases> test cases -->
+<matrices>
+<matrix1.m matrix1.n>
+.
+.
+.
+<matrixn.m matrixn.n>
+...
