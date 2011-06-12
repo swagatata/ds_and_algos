@@ -1,5 +1,9 @@
 kruskal
 kruskal_tests
+<<<<<<< HEAD
+.fuse_*
+=======
 *.pyc
 *.pyo
+>>>>>>> 41aa13bf020d4064daa8f159d17e09b15ad2f8ce
 *.swp

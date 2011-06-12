@@ -1,0 +1,5 @@
+Input format : 
+<testcases>{no of string matchings to be done}
+<string to be searched>
+<string to search in>
+...

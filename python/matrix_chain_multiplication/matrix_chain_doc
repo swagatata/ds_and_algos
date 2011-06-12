@@ -1,0 +1,20 @@
+input should be in matrix_chain_input file.
+
+input format :
+
+<test cases>
+<!-- following are <test cases> test cases -->
+<matrices>
+<matrix1.m matrix1.n>
+.
+.
+.
+<matrixn.m matrixn.n>
+...
+
+solution for optimal order for minimum cost is provided.
+in order to solve for maximum cost, 
+--------rename variable minimum to maximum
+--------initialize maximum to 0
+--------change the < sign in "if temp < minimum:" to "if temp > maximum:"
+
