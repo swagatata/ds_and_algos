@@ -1,7 +1,9 @@
 /**
  * Convert a currency value provided in words into its numerical equivalent.
- *
  * eg. Two thousand three hundred twenty three == 2323
+ *
+ * Author: Divye Kapoor
+ * Date: 13 June 2011
  */
 #include <iostream>
 #include <string>
