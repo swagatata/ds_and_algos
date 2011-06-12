@@ -4,6 +4,8 @@
  *
  * Author: Divye Kapoor
  * Date: 13 June 2011
+ *
+ * Compile with: g++ -std=c++0x currency_conversion.cpp
  */
 #include <iostream>
 #include <string>
