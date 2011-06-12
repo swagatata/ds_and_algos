@@ -4,6 +4,7 @@ Currently, the following algorithms are working:
 
 * Kruskals
 * Matrix Chain Multiplication - Optimization
+* Printing/Generating all the distinct permutations (anagrams) of a string
 
 There are some other algorithms that can be used:
 
@@ -18,4 +19,6 @@ In terms of data structures, the following are available:
 * A class that provides all the comparison operators based on the presence of a cmp function 
   or a less than operator in a class (see: default_operators.hpp)
 
+This codebase is a work in progress. Treat all the code present here as example code. Functions 
+and data members may appear and disappear at will.
 
