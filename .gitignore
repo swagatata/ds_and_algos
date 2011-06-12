@@ -1,9 +1,8 @@
 kruskal
 kruskal_tests
-<<<<<<< HEAD
+permutations_without_duplicates
+permutations_without_duplicates_v2
 .fuse_*
-=======
 *.pyc
 *.pyo
->>>>>>> 41aa13bf020d4064daa8f159d17e09b15ad2f8ce
 *.swp
