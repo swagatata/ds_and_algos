@@ -15,6 +15,9 @@ public:
     
     BinaryTreeNode(Data * data_passed = NULL){
         data = data_passed;
+        if (typeid(int) == typeid(Data)) {
+            (*data) %= 10;
+        }
         left = right = NULL;
     }
 };
@@ -33,10 +36,19 @@ public:
     void post_order_recursion(BinaryTreeNode<Data> * current_node);
     void level_order(void (*visit_fun)(BinaryTreeNode<Data> *));
     void level_order_recursion(BinaryTreeNode<Data> * current_node, queue<BinaryTreeNode<Data> *> &q);    
+    void spiral_level_order(void (*visit_fun)(BinaryTreeNode<Data> *));
 };
 
 template <class Data>
 void BinaryTree<Data>::level_order(void (*visit_fun)(BinaryTreeNode<Data> *)){    
+    Tracer t("level_order", cout);
+    this->visit = visit_fun;
+    queue<BinaryTreeNode<Data> *> q;
+    level_order_recursion(root, q);
+}
+
+template <class Data>
+void BinaryTree<Data>::spiral_level_order(void (*visit_fun)(BinaryTreeNode<Data> *)){    
     Tracer t("level_order", cout);
     this->visit = visit_fun;
     queue<BinaryTreeNode<Data> *> q;

@@ -42,7 +42,7 @@ int main(){
 	int ia, ib, ic;
 	double da, db, dc;
     
-    BinaryTree<int> btree(1000);
+    BinaryTree<int> btree(10);
     btree.pre_order(visit);
     btree.in_order(visit);
     btree.post_order(visit);

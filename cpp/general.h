@@ -8,7 +8,10 @@ using namespace std;
 
 //IO
 template <class T>
-void printArray(T arr[], int size, ostream& out = std::cout);
+void printArray(T arr[], size_t size, ostream& out = std::cout);
+
+template <class T>
+void print2DArray(T ** arr, size_t m, size_t n, ostream& out = std::cout);
 
 template <class T>
 void fillArray(T arr[], int size, T t){for (int i = 0 ; i < size ; i++) arr[i] = t;}
@@ -161,6 +164,17 @@ void printArray(T arr[], int size, ostream& out){
 		out << arr[i] << " " ;
 		
 	out << endl ;	
+}
+
+template <class T>
+void print2DArray(T ** arr, int m, int n, ostream& out){
+	for (int i = 0 ; i < m ; ++i) {
+            for (int j = 0 ; j < n ; ++j)
+                out << arr[i][j] << " " ;
+	    }
+	    out << endl ;
+	}
+	out << endl ;
 }
 
 void str_cpy(char * a, int offset_a, char * b, int start_b, int end_b){
