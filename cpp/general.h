@@ -57,11 +57,11 @@ int binary_search(T arr[], int size, const T &value, int (*compare)(const T &, c
     
     int pivot = size / 2;
     
-    int comparison = compare(T[pivot], value);
+    int comparison = compare(arr[pivot], value);
     
-    if (comparision == 0)
+    if (comparison == 0)
         return pivot;
-    if (comparision < 0)
+    if (comparison < 0)
         return binary_search(arr, pivot, value, compare);
     else
         return binary_search(arr+pivot+1, size - (pivot+1), value, compare);    
@@ -89,7 +89,7 @@ bool isPalindrome(long long n){
 		return true;
 		
 	if (n < 0)
-	    n -* -1;	
+	    n *= -1;	
 		
 	int ndigits = (int)log10(n) + 1;
 	char * num_arr = new char[ndigits];
@@ -112,7 +112,7 @@ int ndigits(long long n){
         return 1;
         
     if (n < 0)
-        n -* -1;
+        n *= -1;
         
     return (int)log10(n) + 1;
 }
@@ -169,7 +169,7 @@ void printArray(T arr[], int size, ostream& out){
 template <class T>
 void print2DArray(T ** arr, int m, int n, ostream& out){
 	for (int i = 0 ; i < m ; ++i) {
-            for (int j = 0 ; j < n ; ++j)
+            for (int j = 0 ; j < n ; ++j) {
                 out << arr[i][j] << " " ;
 	    }
 	    out << endl ;
@@ -321,4 +321,17 @@ long long memreq(int n){//memory required for storing input from 1 to n with spa
 	return ones;
 }
 
+template<typename T>
+T minimum(T a, T b, T c) {
+    if (a < b) 
+        if (a < c) 
+            return a;
+        else 
+            return c;
+    else 
+        if (b < c)
+            return b;
+        else
+            return c;
+}
 #endif
