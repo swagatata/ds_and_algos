@@ -20,6 +20,20 @@ In terms of data structures, the following are available:
 * A class that provides all the comparison operators based on the presence of a cmp function
   or a less than operator in a class (see: default_operators.hpp)
 
+Code in the CPP directory is built and tested using make:
+
+$ cd cpp
+$ make
+... builds and tests all the algorithms.
+
+Similarly, code in the java directory is compiled using make. You must
+have the JDK in your PATH. You can optionally use the IntelliJ project
+file to load the code in your IDE.
+
+$ cd java
+$ make
+... builds all the Java classes and creates a jar file in java/build.
+
 There's also a folder for machine learning that contains a simple gradient
 descent learner for the Iris dataset. It has a train:test dataset ratio of 1:4
 and produces 95.3% accuracy on the test dataset. More to come.

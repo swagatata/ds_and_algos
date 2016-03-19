@@ -8,3 +8,4 @@ permutations_without_duplicates_v2
 *.swp
 *.out
 java/Algorithms/out
+java/build/
