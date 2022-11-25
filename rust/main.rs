@@ -1,16 +1,4 @@
 // hello world
-use std::slice::range;
-
-fn fibonacci(n: i32) -> i32 {
-  // return nth fibonacci number
-  if n == 0 {
-    return 0;
-  } else if n == 1 {
-    return 1;
-  } else {
-    return fibonacci(n-1) + fibonacci(n-2);
-  } 
-}
 
 fn test_format() {
   println!("hello, world");
@@ -33,8 +21,8 @@ fn test_format() {
 // main function
 fn main() {
   // test_format();
-  // print first 10 fibonacci numbers
-  for i in range(0, 10) {
-    println!("fibonacci({}) = {}", i, fibonacci(i));
+  // for loop in range 1 to 10
+  for i in 1..100 {
+    println!("fibonacci({}) = {}", i, mylib::fibonacci(i));
   }
 }
