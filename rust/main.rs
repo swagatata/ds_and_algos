@@ -1,4 +1,12 @@
 // hello world
+// import date
+use std::time::SystemTime;
+use date::Date;
+
+struct Person {
+    name: string,
+    dob: date::Date,
+}
 
 fn test_format() {
   println!("hello, world");
@@ -22,7 +30,19 @@ fn test_format() {
 fn main() {
   // test_format();
   // for loop in range 1 to 10
-  for i in 1..100 {
-    println!("fibonacci({}) = {}", i, mylib::fibonacci(i));
-  }
+
+  // testing fibonacci
+  // for i in 1..100 {
+  //   println!("fibonacci({}) = {}", i, mylib::fibonacci(i));
+  // }
+
+  // structs
+  let s = Person {
+    name: "swagat".to_string(),
+    dob: date::Date {
+      year: 1989,
+      month: 12,
+      day: 31,
+    },
+  };
 }
