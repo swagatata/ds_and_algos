@@ -1,6 +1,7 @@
 #include <vector>
 #include <sstream>
 #include <iostream>
+#include <cmath>
 
 #define ll long long
 #define ull unsigned long long
@@ -29,8 +30,7 @@ private:
     }
   }
 public:
-  SieveOfEratosthenes(size_t max) {
-    this->sieve = *(new std::vector<bool>(max + 1, true));
+  SieveOfEratosthenes(size_t max) : sieve(max+1, true), primes(1024) {
     this->initializeSieve();
   }
   friend std::ostream& operator<<(std::ostream& os, SieveOfEratosthenes const& sieve);
