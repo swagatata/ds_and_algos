@@ -59,3 +59,39 @@ def merge(left, right):
     result += right[j:]
 
     return result
+
+def quick_sort(list):
+    # decide pivot
+    # put it in the right place
+    # recursion
+    length = len(list)
+    if length  < 2:
+        return list
+    
+    pivot = length - 1
+    left = -1
+    i = 0
+    for i in range(length):
+        if i >= pivot:
+            break
+        if list[i] < list[pivot]:
+            left += 1
+            # swap
+            if i == left:
+                continue
+            temp = list[left]
+            list[left] = list[i]
+            list[i] = temp
+    
+    left += 1
+    if left == length-1:
+        return list
+    temp = list[left]
+    list[left] = list[pivot]
+    list[pivot] = temp
+    
+    quick_sort(list[0:left])
+    quick_sort(list[left+1:])
+    return list
+    
+            

@@ -1,6 +1,6 @@
 import unittest
 
-from sort_algo import bubble_sort, selection_sort, insertion_sort, merge_sort
+from sort_algo import bubble_sort, selection_sort, insertion_sort, merge_sort, quick_sort
 
 class TestSortingAlgorithms(unittest.TestCase):
 
@@ -68,21 +68,35 @@ class TestSortingAlgorithms(unittest.TestCase):
         # Test merge sort on a list with randomly ordered elements
         self.assertEqual(merge_sort([4, 1, 3, 2]), [1, 2, 3, 4])
 
-    # def test_quick_sort(self):
-    #     # Test quick sort on an empty list
-    #     self.assertEqual(quick_sort([]), [])
+    def test_quick_sort(self):
+        # Test quick sort on an empty list
+        self.assertEqual(quick_sort([]), [])
 
-    #     # Test quick sort on a list with one element
-    #     self.assertEqual(quick_sort([1]), [1])
+        # Test quick sort on a list with one element
+        self.assertEqual(quick_sort([1]), [1])
 
-    #     # Test quick sort on a list with two elements
-    #     self.assertEqual(quick_sort([2, 1]), [1, 2])
+        # Test quick sort on a list with two elements
+        self.assertEqual(quick_sort([1, 2]), [1, 2])
+        self.assertEqual(quick_sort([2, 1]), [1, 2])
 
-    #     # Test quick sort on a list with three elements
-    #     self.assertEqual(quick_sort([3, 2, 1]), [1, 2, 3])
+        # Test quick sort on a list with three elements
+        self.assertEqual(quick_sort([3, 2, 1]), [1, 2, 3])
 
-    #     # Test quick sort on a list with randomly ordered elements
-    #     self.assertEqual(quick_sort([4, 1, 3, 2]), [1, 2, 3, 4])
+        # Test quick sort on a list with randomly ordered elements
+        self.assertEqual(quick_sort([4, 1, 3, 2]), [1, 2, 3, 4])
+
+        self.assertEqual(quick_sort([4, 1, 2, 3]), [1, 2, 3, 4])
+
+        self.assertEqual(quick_sort([4, 4, 4]), [4, 4, 4])
+        self.assertEqual(quick_sort([4, 1, 2, 4]), [1, 2, 4, 4])
+        self.assertEqual(quick_sort([-4, 1, 2, 4]), [-4, 1, 2, 4])
+        self.assertEqual(quick_sort([-4, 1, 2, -4]), [-4, -4, 1, 2])
+        
+        # boundary cases
+        self.assertEqual(quick_sort([-4, -3, -2, -1, 0, 1]), [-4, -3, -2, -1, 0, 1])
+        self.assertEqual(quick_sort([-4, -3, -2, -1, 0, 1]), [-4, -3, -2, -1, 0, 1])
+
+        assert False
 
 if __name__ == "__main__":
     unittest.main()
