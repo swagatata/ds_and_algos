@@ -15,9 +15,12 @@ TEST(InterviewsTest, SampleTest) {
  * 
  */
 TEST(InterviewsTest, CombinatorialSum) {
-    std::vector<u_int32_t> v{1, 2, 3, 4};
-    CombinatorialSum cSum(v);
+    CombinatorialSum cSum({1, 2, 3, 4});
     EXPECT_EQ(cSum.uniqueSumCombinations(1), 1);
+    EXPECT_EQ(cSum.uniqueSumCombinations(2), 1);
+    EXPECT_EQ(cSum.uniqueSumCombinations(3), 2);
+    EXPECT_EQ(cSum.uniqueSumCombinations(4), 2);
+    EXPECT_EQ(cSum.uniqueSumCombinations(5), 2);
 }
 
 int main(int argc, char **argv) {
