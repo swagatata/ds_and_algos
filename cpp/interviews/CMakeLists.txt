@@ -21,8 +21,12 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 # Add the source files
 add_library(interviews src/interviews.cpp)
+add_library(atlassian src/atlassian.cpp)
 add_executable(interviews.t.tsk tests/interviews.t.cpp)
+add_executable(atlassian.t.tsk tests/atlassian.t.cpp)
 target_link_libraries(interviews.t.tsk interviews ${GTEST_LIBRARIES} pthread)
+target_link_libraries(atlassian.t.tsk interviews ${GTEST_LIBRARIES} pthread)
 
 # Add the test target
 add_test(NAME interviews_test COMMAND interviews.t.tsk)
+add_test(NAME atlassian COMMAND atlassian.t.tsk)
