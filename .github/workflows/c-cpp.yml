@@ -14,10 +14,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: createbuild
-      run: mkdir cpp/problems/build && cd cpp/problems/build
+      run: mkdir cpp/problems/build
     - name: cmake
-      run: cmake ..
+      run:  cd cpp/problems/build && cmake ..
     - name: make
-      run: make
+      run: cd cpp/problems/build && make
     - name: runtests
-      run: ./cpp && ./cpp_project
+      run: cd cpp/problems/build && ./cpp_project
