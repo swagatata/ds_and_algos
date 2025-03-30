@@ -3,6 +3,12 @@
 #include <cmath>
 using namespace std;
 
+/**
+ * Find leaves of binary tree
+ * #leetcode 
+ * https://leetcode.com/problems/find-leaves-of-binary-tree
+ */
+
 void leafNodes(vector<int> &tree, vector<int> &result) {
     if (tree.empty()) {
         return;
