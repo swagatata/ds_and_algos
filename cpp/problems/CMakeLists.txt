@@ -25,6 +25,7 @@ add_executable(${PROJECT_NAME}
     src/tests/arithmetic_test.cpp
     src/tests/calculator_test.cpp
     src/tests/leafnodes_test.cpp
+    src/tests/timemap_test.cpp
 )
 
 # Add include directories
