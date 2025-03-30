@@ -10,3 +10,4 @@ permutations_without_duplicates_v2
 java/Algorithms/out
 java/build/
 *.venv*
+build/
