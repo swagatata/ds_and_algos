@@ -6,12 +6,6 @@
 
 using namespace std;
 
-// Define the debug flag
-bool DEBUG = false;
-
-// Debug logging macro that only prints when DEBUG is true
-#define DEBUG_LOG(x) if (DEBUG) { cout << x << endl; }
-
 class Problem {
 private:
   const string& s1;
