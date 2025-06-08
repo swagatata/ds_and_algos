@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 #include <memory>
+#include <iostream>
+#include <optional>
 
 using namespace std;
 
@@ -11,6 +13,25 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
 
+// Equality operator for TreeNode
+inline bool operator==(const TreeNode& a, const TreeNode& b) {
+    if (a.val != b.val) return false;
+    if ((a.left == nullptr) != (b.left == nullptr)) return false;
+    if ((a.right == nullptr) != (b.right == nullptr)) return false;
+    bool left_eq = (!a.left && !b.left) || (a.left && b.left && *a.left == *b.left);
+    bool right_eq = (!a.right && !b.right) || (a.right && b.right && *a.right == *b.right);
+    return left_eq && right_eq;
+}
+
+// Custom printer for Google Test
+void PrintTo(const optional<TreeNode>& node, ::std::ostream* os) {
+    if (!node) {
+        *os << "nullopt";
+    } else {
+        *os << "TreeNode(" << node->val << ")";
+    }
+}
+
 // Helper function to delete a tree
 void deleteTree(TreeNode* root) {
     if (root) {
@@ -21,11 +42,11 @@ void deleteTree(TreeNode* root) {
 }
 
 // Function to find k-unbalanced node in a binary tree
-// Returns nullptr if no k-unbalanced node is found
+// Returns nullopt if no k-unbalanced node is found
 // A node is k-unbalanced if the difference in heights of its left and right subtrees is greater than k
-TreeNode* findKUnbalanced(TreeNode* root, int k) {
+optional<TreeNode> findKUnbalanced(const TreeNode& root, int k) {
     // TODO: Implement the function
-    return nullptr;
+    return nullopt;
 }
 
 // Test fixture class
@@ -46,49 +67,44 @@ TEST(KUnbalancedTest, BasicTest) {
     //     1
     //    / \
     //   2   3
-    TreeNode* root = new TreeNode(1);
-    root->left = new TreeNode(2);
-    root->right = new TreeNode(3);
+    TreeNode root(1);
+    root.left = new TreeNode(2);
+    root.right = new TreeNode(3);
     
-    EXPECT_EQ(findKUnbalanced(root, 1), nullptr);
-    
-    deleteTree(root);
+    EXPECT_EQ(findKUnbalanced(root, 1), nullopt);
 }
 
 // Parameterized test
-class KUnbalancedPTest : public ::testing::TestWithParam<tuple<TreeNode*, int, TreeNode*>> {
+class KUnbalancedPTest : public ::testing::TestWithParam<tuple<optional<TreeNode>, int, optional<TreeNode>>> {
 protected:
     void SetUp() override {
         // Setup code that will be called before each test
     }
 
     void TearDown() override {
-        // Cleanup both input and expected trees
-        if (get<0>(GetParam())) {
-            deleteTree(get<0>(GetParam()));
-        }
-        if (get<2>(GetParam())) {
-            deleteTree(get<2>(GetParam()));
-        }
+        // Cleanup code that will be called after each test
     }
 };
 
 TEST_P(KUnbalancedPTest, DifferentCases) {
-    auto root = get<0>(GetParam());
-    auto k = get<1>(GetParam());
-    auto expected = get<2>(GetParam());
-    EXPECT_EQ(findKUnbalanced(root, k), expected);
+    auto [root, k, expected] = GetParam();
+    
+    if (!root) {
+        EXPECT_THROW(findKUnbalanced(*root, k), std::invalid_argument);
+    } else {
+        EXPECT_EQ(findKUnbalanced(*root, k), expected);
+    }
 }
 
 // Example test cases
 INSTANTIATE_TEST_SUITE_P(KUnbalancedPTest, KUnbalancedPTest, ::testing::Values(
     // Empty tree
-    make_tuple(nullptr, 1, nullptr),
+    make_tuple(nullopt, 1, nullopt),
     
     // Single node tree
     []() {
-        TreeNode* root = new TreeNode(1);
-        return make_tuple(root, 1, nullptr);
+        TreeNode root(1);
+        return make_tuple(optional<TreeNode>(root), 1, nullopt);
     }(),
     
     // Example of a k-unbalanced tree (k=1)
@@ -99,12 +115,12 @@ INSTANTIATE_TEST_SUITE_P(KUnbalancedPTest, KUnbalancedPTest, ::testing::Values(
     //    /     \
     //   4       5
     []() {
-        TreeNode* root = new TreeNode(1);
-        root->left = new TreeNode(2);
-        root->right = new TreeNode(3);
-        root->left->left = new TreeNode(4);
-        root->right->right = new TreeNode(5);
-        return make_tuple(root, 1, nullptr);  // Replace nullptr with actual expected k-unbalanced node
+        TreeNode root(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left->left = new TreeNode(4);
+        root.right->right = new TreeNode(5);
+        return make_tuple(optional<TreeNode>(root), 1, nullopt);  // Replace nullopt with actual expected k-unbalanced node
     }(),
 
     // Tree with height difference of 2 (k=1)
@@ -117,11 +133,11 @@ INSTANTIATE_TEST_SUITE_P(KUnbalancedPTest, KUnbalancedPTest, ::testing::Values(
     //  /
     // 5
     []() {
-        TreeNode* root = new TreeNode(1);
-        root->left = new TreeNode(2);
-        root->right = new TreeNode(3);
-        root->left->left = new TreeNode(4);
-        root->left->left->left = new TreeNode(5);
-        return make_tuple(root, 1, root);  // Root should be k-unbalanced as left height=3, right height=1
+        TreeNode root(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left->left = new TreeNode(4);
+        root.left->left->left = new TreeNode(5);
+        return make_tuple(optional<TreeNode>(root), 1, optional<TreeNode>(root));  // Root should be k-unbalanced as left height=3, right height=1
     }()
 ));

@@ -1,0 +1,23 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: createbuild
+      run: mkdir cpp/problems/build
+    - name: cmake
+      run:  cd cpp/problems/build && cmake ..
+    - name: make
+      run: cd cpp/problems/build && make
+    - name: runtests
+      run: cd cpp/problems/build && ./cpp_project

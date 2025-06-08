@@ -39,6 +39,6 @@ endforeach()
 
 # Add the main source file if it exists
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp")
-    add_executable(main_app src/main.cpp)
+    add_executable(main_app src/main.cpp ${TEST_SOURCES})
     target_link_libraries(main_app PRIVATE gtest_main gmock_main)
 endif()
