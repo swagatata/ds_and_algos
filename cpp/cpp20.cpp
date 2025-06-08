@@ -18,7 +18,11 @@ int main()
   double foo = -0.0;
   double bar = 0.0;
 
-  auto res = foo <=> bar;
+  // Spaceship operator requires C++20
+  // auto res = foo <=> bar;
+  
+  // Using traditional comparison for now
+  auto res = (foo < bar) ? -1 : (foo > bar) ? 1 : 0;
 
   if (res < 0)
     std::cout << "-0 is less than 0";

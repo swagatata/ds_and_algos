@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(cpp_project VERSION 1.0)
+project(problems)
 
 # Specify C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -16,20 +16,29 @@ FetchContent_Declare(
     googletest
     GIT_REPOSITORY https://github.com/google/googletest.git
     GIT_TAG release-1.12.1
+    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
 )
 FetchContent_MakeAvailable(googletest)
 
-# Add executable
-add_executable(${PROJECT_NAME} 
-    src/main.cpp
-    src/tests/arithmetic_test.cpp
-    src/tests/calculator_test.cpp
-    src/tests/leafnodes_test.cpp
-    src/tests/timemap_test.cpp
-)
+# Add the ping_measure executable
+add_executable(ping_measure ping_measure.cpp)
 
-# Add include directories
-target_include_directories(${PROJECT_NAME} PRIVATE include)
+# Include directories
+include_directories(include)
 
-# Link against Google Test and Google Mock
-target_link_libraries(${PROJECT_NAME} PRIVATE gtest_main gmock_main) 
+# Collect all test source files
+file(GLOB TEST_SOURCES "src/tests/*.cpp")
+
+# For each test source, create an executable
+foreach(test_source ${TEST_SOURCES})
+    get_filename_component(test_name ${test_source} NAME_WE)
+    add_executable(${test_name} ${test_source})
+    target_link_libraries(${test_name} PRIVATE gtest_main gmock_main)
+    add_test(NAME ${test_name} COMMAND ${test_name})
+endforeach()
+
+# Add the main source file if it exists
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp")
+    add_executable(main_app src/main.cpp ${TEST_SOURCES})
+    target_link_libraries(main_app PRIVATE gtest_main gmock_main)
+endif()

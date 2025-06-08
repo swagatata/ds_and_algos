@@ -83,7 +83,7 @@ void dijkstra(Graph g, int *dist, int *prev, int start) {
    }
 }
 
-main() {
+int main() {
    int n = 7;
    Graph g(n);
    int dist[n], prev[n];

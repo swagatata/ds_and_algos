@@ -3,26 +3,28 @@ project(distributed_systems)
 
 set(CMAKE_CXX_STANDARD 14)
 
-find_library(GTEST_LIBRARIES
-             NAMES gtest gtest_main
-             HINTS /usr/local/lib)
-
-find_path(GTEST_INCLUDE_DIRS
-          NAMES gtest/gtest.h
-          HINTS /usr/local/include/)
-
-message(STATUS "GTest include directories: ${GTEST_INCLUDE_DIRS}")
-message(STATUS "GTest library directories: ${GTEST_LIBRARY_DIRS}")
-message(STATUS "GTest libraries: ${GTEST_LIBRARIES}")
+# Check if GoogleTest has already been added by parent project
+if(NOT TARGET gtest AND NOT TARGET gtest_main)
+  include(FetchContent)
+  FetchContent_Declare(
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG release-1.12.1
+    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+  )
+  FetchContent_MakeAvailable(googletest)
+  message(STATUS "Fetched GoogleTest for distributed_systems module")
+else()
+  message(STATUS "Using parent project's GoogleTest")
+endif()
 
 # Add the include directory
 include_directories(include)
-include_directories(${GTEST_INCLUDE_DIRS})
 
 # Add the source files
 add_library(distributed_system src/distributed_system.cpp)
-add_executable(distributed_system.tsk tests/distributed_system.t.cpp)
-target_link_libraries(distributed_system.tsk distributed_system ${GTEST_LIBRARIES} pthread)
+add_executable(distributed_system_test tests/distributed_system.t.cpp)
+target_link_libraries(distributed_system_test distributed_system gtest gtest_main pthread)
 
 # Add the test target
-add_test(NAME distributed_system_test COMMAND distributed_system.tsk)
+add_test(NAME distributed_system_test COMMAND distributed_system_test)
