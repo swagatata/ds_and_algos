@@ -56,8 +56,6 @@ vector<size_t> findDiffIndex(StrRef s1, StrRef s2) {
     if (s2.empty())
         return {0};
 
-    static vector<
-
     vector<size_t> diffIndices;
     if (s1[s1.l] == s2[s2.l]) {
         auto s1Right = s1;
