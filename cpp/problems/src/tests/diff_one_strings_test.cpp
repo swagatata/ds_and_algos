@@ -4,75 +4,62 @@
 
 using namespace std;
 
-struct StrRef {
-    const string& str;
-    size_t l, r;
+class Problem {
+private:
+  const string& s1;
+  const string& s2;
+  size_t commonSuffixSize;
+public:
+  Problem(const string& str1, const string& str2) : s1(str1), s2(str2) {
 
-    size_t length() {
-        return r - l;
+  }
+
+  void computeSuffix() {
+    size_t s1size = s1.size();
+    size_t s2size = s2.size();
+    size_t i;
+    for (i = 1; s2size >= i && s1[s1size - i] == s2[s2size - i]; ++i) {}
+    commonSuffixSize = i - 1;
+  }
+
+  stack<size_t> computeDiff(size_t i1, size_t i2) {
+    // cout << "computing with " << i1 << " and " << i2 << endl;
+    stack<size_t> possibleDiffs;  
+    if (i2 == s2.size()) {
+      possibleDiffs.push(i1);
+      return possibleDiffs;
     }
 
-    bool empty() {
-        return str.empty() or l == r;
+    // compute
+    if (s1[i1] == s2[i2]) {
+      possibleDiffs = computeDiff(i1+1, i2+1);
     }
 
-    char operator[](size_t index) {
-        if (index < l || index >= r) {
-            // cerr << "Index out of range " << str << ":" << index << '\n';
-        }
-        return str[index];
+    // common prefix
+    if (commonSuffixSize > 0 && i1 + 1 + commonSuffixSize >= s1.size()) {
+      possibleDiffs.push(i1);
+    }
+    return possibleDiffs;
+  }
+
+  vector<size_t> solution() {
+    // cout << "finding solution for " << s1 << " and " << s2 << endl;
+    if (s1.size() != s2.size() + 1) {
+      return {};
     }
 
-    bool operator==(const StrRef& other) {
-        // cout << "comparing strings : "; print(); other.print(); cout << endl;
-        if (r - l != other.r - other.l) {
-            return false;
-        }
-        for (auto i = 0; i + l < r; ++i) {
-            if (str[l + i] != other.str[other.l + i]) {
-                return false;
-            }
-        }
-        return true;
+    computeSuffix();
+    // cout << "common suffix is " << commonSuffixSize << endl;
+    auto diffIndices = computeDiff(0, 0);
+    vector<size_t> v;
+    while(!diffIndices.empty()) {
+      v.push_back(diffIndices.top());
+      diffIndices.pop();
     }
-
-    StrRef(const string& strin, size_t lp, size_t rp) : str(strin), l(lp), r(rp) {}
-
-    void print() const {
-        cout << "string is: ";
-        for (auto i = l; i < r; ++i) {
-            cout << str[i] << ",";
-        }
-    }
+    return v;
+  }
 };
 
-// Function to find indices where two strings differ
-// Returns a vector of indices where the characters differ
-vector<size_t> findDiffIndex(StrRef s1, StrRef s2) {
-    // cout << "comparing "; s1.print(); cout << " and "; s2.print(); cout << endl;
-    if (s1.length() != s2.length() + 1)
-        return {};
-    
-    if (s2.empty())
-        return {0};
-
-    vector<size_t> diffIndices;
-    if (s1[s1.l] == s2[s2.l]) {
-        auto s1Right = s1;
-        auto s2Right = s2;
-        s1Right.l++;
-        s2Right.l++;
-        diffIndices = findDiffIndex(s1Right, s2Right);
-        for (auto& i : diffIndices) {
-            i++;
-        }
-    }
-    s1.l++;    
-    if (s1 == s2) {
-        diffIndices.insert(diffIndices.begin(), 0);
-    }
-    return diffIndices;
-}
 
 // Parameterized test for different string pairs
 class DiffOneStringsPTest : public ::testing::TestWithParam<tuple<string, string, vector<size_t>>> {
@@ -88,9 +75,11 @@ protected:
 
 TEST_P(DiffOneStringsPTest, DifferentCases) {
     auto [s1, s2, expected] = GetParam();
-    StrRef str1(s1, 0, s1.size());
-    StrRef str2(s2, 0, s2.size());
-    EXPECT_EQ(findDiffIndex(str1, str2), expected);
+    // StrRef str1(s1, 0, s1.size());
+    // StrRef str2(s2, 0, s2.size());
+    Problem p(s1, s2);
+    // EXPECT_EQ(findDiffIndex(str1, str2), expected);
+    EXPECT_EQ(p.solution(), expected);
 }
 
 INSTANTIATE_TEST_SUITE_P(
