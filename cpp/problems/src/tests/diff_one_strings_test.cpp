@@ -1,8 +1,29 @@
 #include <gtest/gtest.h>
 #include <string>
 #include <vector>
+#include <iostream>
+#include <stack>
+#include <cstdlib>
 
 using namespace std;
+
+// Debug flag - can be set via environment variable DEBUG_MODE
+bool DEBUG = false;
+
+// Debug logging macro that only prints when DEBUG is true
+#define DEBUG_LOG(x) if (DEBUG) { cout << x << endl; }
+
+// Base test fixture that handles debug mode
+class BaseTest : public ::testing::Test {
+protected:
+    void SetUp() override {
+        const char* debug_env = std::getenv("DEBUG_MODE");
+        DEBUG = (debug_env != nullptr && string(debug_env) == "1");
+        if (DEBUG) {
+            cout << "Running in DEBUG mode" << endl;
+        }
+    }
+};
 
 class Problem {
 private:
@@ -11,7 +32,7 @@ private:
   size_t commonSuffixSize;
 public:
   Problem(const string& str1, const string& str2) : s1(str1), s2(str2) {
-
+    DEBUG_LOG("Created Problem with strings: " << s1 << " and " << s2);
   }
 
   void computeSuffix() {
@@ -20,65 +41,62 @@ public:
     size_t i;
     for (i = 1; s2size >= i && s1[s1size - i] == s2[s2size - i]; ++i) {}
     commonSuffixSize = i - 1;
+    DEBUG_LOG("Common suffix size: " << commonSuffixSize);
   }
 
   stack<size_t> computeDiff(size_t i1, size_t i2) {
-    // cout << "computing with " << i1 << " and " << i2 << endl;
+    DEBUG_LOG("Computing diff with indices: " << i1 << " and " << i2);
     stack<size_t> possibleDiffs;  
     if (i2 == s2.size()) {
       possibleDiffs.push(i1);
+      DEBUG_LOG("Reached end of s2, pushing index: " << i1);
       return possibleDiffs;
     }
 
     // compute
     if (s1[i1] == s2[i2]) {
+      DEBUG_LOG("Characters match at " << i1 << ", recursing");
       possibleDiffs = computeDiff(i1+1, i2+1);
     }
 
     // common prefix
     if (commonSuffixSize > 0 && i1 + 1 + commonSuffixSize >= s1.size()) {
+      DEBUG_LOG("Found common prefix, pushing index: " << i1);
       possibleDiffs.push(i1);
     }
     return possibleDiffs;
   }
 
   vector<size_t> solution() {
-    // cout << "finding solution for " << s1 << " and " << s2 << endl;
+    DEBUG_LOG("Finding solution for: " << s1 << " and " << s2);
     if (s1.size() != s2.size() + 1) {
+      DEBUG_LOG("Strings don't differ by exactly one character");
       return {};
     }
 
     computeSuffix();
-    // cout << "common suffix is " << commonSuffixSize << endl;
     auto diffIndices = computeDiff(0, 0);
     vector<size_t> v;
     while(!diffIndices.empty()) {
       v.push_back(diffIndices.top());
       diffIndices.pop();
     }
+    DEBUG_LOG("Solution found with " << v.size() << " differences");
     return v;
   }
 };
 
-
 // Parameterized test for different string pairs
-class DiffOneStringsPTest : public ::testing::TestWithParam<tuple<string, string, vector<size_t>>> {
+class DiffOneStringsPTest : public BaseTest, public ::testing::WithParamInterface<tuple<string, string, vector<size_t>>> {
 protected:
     void SetUp() override {
-        // Setup code that will be called before each test
-    }
-
-    void TearDown() override {
-        // Cleanup code that will be called after each test
+        BaseTest::SetUp();  // Call parent's SetUp to initialize debug mode
     }
 };
 
 TEST_P(DiffOneStringsPTest, DifferentCases) {
     auto [s1, s2, expected] = GetParam();
-    // StrRef str1(s1, 0, s1.size());
-    // StrRef str2(s2, 0, s2.size());
     Problem p(s1, s2);
-    // EXPECT_EQ(findDiffIndex(str1, str2), expected);
     EXPECT_EQ(p.solution(), expected);
 }
 
