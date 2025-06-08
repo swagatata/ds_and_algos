@@ -27,7 +27,7 @@ add_executable(ping_measure ping_measure.cpp)
 include_directories(include)
 
 # Collect all test source files
-file(GLOB TEST_SOURCES "src/tests/*.cpp")
+file(GLOB TEST_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/tests/*.cpp")
 
 # For each test source, create an executable
 foreach(test_source ${TEST_SOURCES})

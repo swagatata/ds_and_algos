@@ -8,10 +8,11 @@
 using namespace std;
 
 // Debug flag - can be set via environment variable DEBUG_MODE
-bool DEBUG = false;
+static bool DEBUG = false;
 
 // Debug logging macro that only prints when DEBUG is true
 #define DEBUG_LOG(x) if (DEBUG) { cout << x << endl; }
+#define DEBUG_LOG_SPACES(x) if (DEBUG) { cout << x << " "; }
 
 // Base test fixture that handles debug mode
 class BaseTest : public ::testing::Test {
@@ -24,3 +25,5 @@ protected:
         }
     }
 }; 
+
+#define PV(x) for(auto v : x) DEBUG_LOG(v)
